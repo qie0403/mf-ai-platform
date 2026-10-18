@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  ai-platform:
+    build: .
+    container_name: multi-ai-platform
+    restart: always
+    ports:
+      - "8501:8501"
+    # 挂载本地.env文件，安全不泄露密钥
+    volumes:
+      - ./.env:/app/.env

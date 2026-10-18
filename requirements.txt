@@ -1,0 +1,11 @@
+# 核心框架
+streamlit>=1.33.0
+# 大模型API
+openai>=1.20.0
+# 文档解析
+python-docx>=0.8.11
+PyPDF2>=3.0.1
+# 图片处理
+Pillow>=10.2.0
+# 编码处理
+python-dotenv>=1.0.1
