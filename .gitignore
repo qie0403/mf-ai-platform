@@ -8,8 +8,10 @@ __pycache__/
 venv/
 env/
 ENV/
-# Streamlit缓存
-.streamlit/
+# Streamlit缓存（保留主题配置 config.toml，只忽略敏感密钥）
+.streamlit/secrets.toml
+# 运行时对话历史
+chat_history.json
 # 临时文件
 uploads/
 # 系统文件

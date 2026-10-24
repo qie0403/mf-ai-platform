@@ -1,0 +1,20 @@
+# MF-AI 工作台 主题配置（v1.1 · 深蓝黑版）
+# 冷色调深色：黑/藏青/钢蓝，不要紫
+#   - 主背景：深蓝炭灰 #14181F
+#   - 卡片/输入框：石板灰 #1F2530
+#   - 侧边栏：近黑 #0C0F14
+#   - 主色：钢蓝 #4A90D9
+[theme]
+base = "dark"
+primaryColor = "#4A90D9"
+backgroundColor = "#14181F"
+secondaryBackgroundColor = "#1F2530"
+textColor = "#E6E9EF"
+font = "sans serif"
+
+[server]
+headless = true
+runOnSave = true
+
+[browser]
+gatherUsageStats = false
