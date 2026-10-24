@@ -5,6 +5,7 @@
 版本：v1.0
 """
 import streamlit as st
+from modules.home import render_home_interface
 from modules.chat_module import render_chat_interface
 from modules.document_summary import render_document_summary_interface
 from modules.copywriting_gen import render_copywriting_gen_interface
@@ -83,27 +84,29 @@ def main():
     # 渲染页面头部
     render_page_header()
 
-    # 侧边栏模块导航（v1.1：按使用频率重排，高频模块置顶，减少用户点击成本）
+    # 侧边栏模块导航
     with st.sidebar:
         st.title("功能导航")
         st.divider()
-        # 模块选择：文案生成 > 智能对话 > 文档总结 > 多模态图片解析
+        # v1.2：新增首页工作台作为默认落地页；其余按使用频率排列
         selected_module = st.radio(
             "请选择功能模块",
-            options=["文案生成", "智能对话", "文档总结", "多模态图片解析"],
+            options=["🏠 首页", "✍️ 文案生成", "💬 智能对话", "📄 文档总结", "🖼️ 多模态图片解析"],
             index=0
         )
         st.divider()
-        st.caption("v1.1 | MF-AI 工作台 · 迭代版")
+        st.caption("v1.2 | MF-AI 工作台")
 
     # 根据选择渲染对应模块界面
-    if selected_module == "文案生成":
+    if selected_module == "🏠 首页":
+        render_home_interface()
+    elif selected_module == "✍️ 文案生成":
         render_copywriting_gen_interface()
-    elif selected_module == "智能对话":
+    elif selected_module == "💬 智能对话":
         render_chat_interface()
-    elif selected_module == "文档总结":
+    elif selected_module == "📄 文档总结":
         render_document_summary_interface()
-    elif selected_module == "多模态图片解析":
+    elif selected_module == "🖼️ 多模态图片解析":
         render_multimodal_parser_interface()
 
 # 程序入口
