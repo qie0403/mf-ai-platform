@@ -49,11 +49,35 @@ mf-ai-platform/
 │   ├── multimodal_parser.py   # 多模态图片解析
 │   └── llm_client.py          # 大模型客户端封装（单例）
 ├── .streamlit/config.toml     # 主题配置
+├── tests/                     # pytest 单元测试（14 个用例）
+├── pytest.ini                 # 测试配置
+├── requirements-dev.txt       # 测试依赖（pytest / pytest-cov）
+├── .github/workflows/ci.yml   # GitHub Actions CI（3.11 / 3.13 双版本）
 ├── .env.example               # 环境变量模板
 ├── requirements.txt
 ├── Dockerfile
 └── docker-compose.yml
 ```
+
+## ✅ 测试与 CI
+
+```bash
+# 安装测试依赖（运行应用本身不需要）
+pip install -r requirements-dev.txt
+
+# 跑单元测试（14 个用例，不发起真实 API 请求）
+pytest -q
+```
+
+覆盖的纯逻辑：报错文本清洗与 Markdown 修复、对话历史的读写与容错（坏 JSON 回落默认）、
+对话报告导出、TXT 多编码读取（含 GBK 回归用例）、图片转 base64、客户端环境变量解析。
+
+CI 见 `.github/workflows/ci.yml`：push / PR 触发，Python 3.11 与 3.13 双矩阵，
+只注入占位 API Key，因此测试**不依赖网络与真实密钥**。
+
+> 顺带修掉一个真实 bug：早期 `read_txt_file` 在 UTF-8 解码失败后再次 `read()` 已耗尽的流，
+> 导致 GBK 编码的中文 TXT 被静默读成空字符串。现改为一次性取出原始字节，再按
+> `utf-8 → gb18030 → gbk` 顺序解码，并有回归测试守着。
 
 ## 🚀 快速开始（本地运行）
 

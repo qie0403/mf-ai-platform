@@ -45,20 +45,29 @@ def read_docx_file(file_bytes: BytesIO) -> str:
         return ""
 
 def read_txt_file(file_bytes: BytesIO) -> str:
-    """读取TXT文本文件内容，兼容多编码格式"""
+    """读取TXT文本文件内容，兼容多编码格式
+
+    注意：字节流只能读一次。早期版本在 UTF-8 解码失败后再次调用 file_bytes.read()，
+    此时流已耗尽、返回空字节，导致 GBK 编码的中文 TXT 被静默读成空字符串。
+    这里改为先一次性取出原始字节，再按编码顺序逐个尝试。
+    """
     try:
-        text = file_bytes.read().decode("utf-8")
-        return text
-    except UnicodeDecodeError:
-        try:
-            text = file_bytes.read().decode("gbk")
-            return text
-        except Exception as e:
-            st.error(f"TXT文件读取失败，不支持的编码格式：{str(e)}")
-            return ""
+        raw = file_bytes.read()
     except Exception as e:
         st.error(f"TXT文件读取失败：{str(e)}")
         return ""
+
+    if not raw:
+        return ""
+
+    for encoding in ("utf-8", "gb18030", "gbk"):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+
+    st.error("TXT文件读取失败，不支持的编码格式")
+    return ""
 
 def render_document_summary_interface():
     """渲染文档总结模块的界面，处理文件上传和总结逻辑"""
