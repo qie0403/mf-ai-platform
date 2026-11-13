@@ -1,5 +1,9 @@
 # MF-AI 工作台（MF-AI Platform）
 
+[![CI](https://github.com/qie0403/mf-ai-platform/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/qie0403/mf-ai-platform/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.32%2B-red)
+
 > 一站式 AI 生产力工具平台：基于 Streamlit + 大模型 API，集成 **文案生成、智能对话、文档总结、多模态图片解析** 四大功能。兼容所有 OpenAI 格式接口（GPT / DeepSeek / 智谱 GLM / 通义千问）。
 
 ![主界面](docs/images/home.png)
