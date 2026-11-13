@@ -13,7 +13,10 @@ textColor = "#E6E9EF"
 font = "sans serif"
 
 [server]
-headless = true
+# headless = false：本地 `streamlit run app.py` 时自动弹出浏览器。
+# （headless = true 会让它只起服务、不打开浏览器，必须自己再输 localhost:8501）
+# 容器里没有显示器，所以 Dockerfile 的启动命令里显式加了 --server.headless=true。
+headless = false
 runOnSave = true
 
 [browser]

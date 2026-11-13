@@ -22,4 +22,5 @@ COPY . .
 EXPOSE 8501
 
 # 容器启动命令
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# --server.headless=true：容器内没有浏览器，禁止尝试自动打开（配置里为本地开发设成了 false）
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]

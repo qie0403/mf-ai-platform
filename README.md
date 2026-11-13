@@ -127,10 +127,16 @@ MULTIMODAL_MODEL="GLM-4.7"
 ### 4. 启动
 
 ```bash
+# 必须在项目根目录执行（Streamlit 按当前目录查找 .streamlit/config.toml）
 streamlit run app.py
 ```
 
-浏览器自动打开 `http://localhost:8501`。
+启动后浏览器会自动打开 `http://localhost:8501`，不需要手动输入地址。
+
+> 自动打开依赖 `.streamlit/config.toml` 里的 `[server] headless = false`。
+> 这个值如果是 `true`，Streamlit 只会起服务、不弹浏览器，你就得自己再敲一遍 localhost:8501。
+> 容器里没有浏览器，所以 Dockerfile 的启动命令额外加了 `--server.headless=true`，
+> 两边的行为互不影响。
 
 ## 🐳 Docker 部署（可选）
 
@@ -153,6 +159,7 @@ docker-compose up -d --build
 
 ## 🔧 常见问题
 
+- **启动后浏览器没自动打开**：检查 `.streamlit/config.toml` 的 `[server] headless` 是否为 `false`；并确认是在**项目根目录**执行 `streamlit run app.py`（不在根目录时读不到这份配置）。应急办法是启动命令后直接加参数：`streamlit run app.py --server.headless=false`。
 - **页面文字发虚 / 主题异常**：确认 `.streamlit/config.toml` 存在，项目已强制深色主题。
 - **报 API 调用失败**：检查 `.env` 的 KEY、BASE_URL、模型名是否匹配；网络是否能访问接口。
 - **对话历史不消失**：这是持久化设计，记录在 `chat_history.json`，点侧边栏「清空对话历史」即可重置。
